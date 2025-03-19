@@ -13,7 +13,7 @@ import Navbar from "./components/Navbar";
 import ProductTable from "./components/ProductTable";
 import Home from "./components/Home";
 import Dashboard from "./components/Dashboard"; 
-import Opportunities from "./components/Opportunities";
+// import Opportunities from "./components/Opportunities";
 
 const { Header, Content, Sider } = Layout;
 
