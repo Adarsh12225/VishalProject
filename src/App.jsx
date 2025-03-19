@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { Image } from "antd";
-import logo from "./assets/logo.png";
-import Navbar from "./components/Navbar"; 
-
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Image, Layout, Menu, theme } from "antd";
 import {
   UserOutlined,
   BarChartOutlined,
@@ -10,26 +8,11 @@ import {
   ShoppingOutlined,
   ProductOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, theme } from "antd";
+import logo from "./assets/logo.png";
+import Navbar from "./components/Navbar";
+import ProductTable from "./components/ProductTable"; // Import the ProductTable component
 
-const { Header, Content, Footer, Sider } = Layout;
-
-function getItem(label, key, icon, children) {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  };
-}
-
-const items = [
-  getItem("Product Details", "1", <UserOutlined />),
-  getItem("Compare Products", "2", <BarChartOutlined />),
-  getItem("Dashboard", "3", <ProductOutlined />),
-  getItem("Opportunities", "4", <ShoppingOutlined />),
-  getItem("Contact Us", "5", <ContactsOutlined />),
-];
+const { Header, Content, Sider } = Layout;
 
 const App = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -38,22 +21,62 @@ const App = () => {
   } = theme.useToken();
 
   return (
-    <Layout style={{ minHeight: "100vh" }}>
-      {/* Add Navbar Here */}
-      <Header style={{ padding: 0, background: "#fff" }}>
-        <Navbar />
-      </Header>
+    <Router>
+      <Layout style={{ minHeight: "100vh" }}>
+        {/* Navbar */}
+        <Header style={{ padding: 0, background: "#fff" }}>
+          <Navbar />
+        </Header>
 
-      <Layout>
-        <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-          <div className="logo" style={{ textAlign: "center", padding: "10px" }}>
-            <Image width={collapsed ? 40 : 150} src={logo} preview={false} />
-          </div>
+        <Layout>
+          {/* Sidebar */}
+          <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+            <div className="logo" style={{ textAlign: "center", padding: "10px" }}>
+              <Image width={collapsed ? 40 : 150} src={logo} preview={false} />
+            </div>
 
-          <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline" items={items} />
-        </Sider>
+            <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
+              <Menu.Item key="1" icon={<UserOutlined />}>
+                <Link to="/product-details">Product Details</Link>
+              </Menu.Item>
+              <Menu.Item key="2" icon={<BarChartOutlined />}>
+                <Link to="/compare-products">Compare Products</Link>
+              </Menu.Item>
+              <Menu.Item key="3" icon={<ProductOutlined />}>
+                <Link to="/dashboard">Dashboard</Link>
+              </Menu.Item>
+              <Menu.Item key="4" icon={<ShoppingOutlined />}>
+                <Link to="/opportunities">Opportunities</Link>
+              </Menu.Item>
+              <Menu.Item key="5" icon={<ContactsOutlined />}>
+                <Link to="/contact">Contact Us</Link>
+              </Menu.Item>
+            </Menu>
+          </Sider>
+
+          {/* Page Content */}
+          <Layout style={{ padding: "24px" }}>
+            <Content
+              style={{
+                margin: 0,
+                minHeight: 280,
+                background: colorBgContainer,
+                borderRadius: borderRadiusLG,
+              }}
+            >
+              <Routes>
+                <Route path="/product-details" element={<ProductTable />} />
+                <Route path="/compare-products" element={<h2>Compare Products Page</h2>} />
+                <Route path="/dashboard" element={<h2>Dashboard Page</h2>} />
+                <Route path="/opportunities" element={<h2>Opportunities Page</h2>} />
+                <Route path="/contact" element={<h2>Contact Us Page</h2>} />
+                <Route path="/" element={<h2>Welcome! Select an option from the sidebar.</h2>} />
+              </Routes>
+            </Content>
+          </Layout>
+        </Layout>
       </Layout>
-    </Layout>
+    </Router>
   );
 };
 
