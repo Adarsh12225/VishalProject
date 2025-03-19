@@ -1,38 +1,30 @@
 import React from "react";
-import "../navbar.css";
+import { Link } from "react-router-dom";
+import { Menu } from "antd";
 
-function Navbar() {
+const Navbar = () => {
   return (
-    <nav className="nav">
-      <ul className="nav__menu">
-        <li className="nav__item">
-          <a href="" className="nav__link">
-            Home
-          </a>
-        </li>
-        <li className="nav__item">
-          <a href="#" className="nav__link">
-            About
-          </a>
-        </li>
-        <li className="nav__item">
-          <a href="#" className="nav__link">
-            Portfolio
-          </a>
-        </li>
-        <li className="nav__item">
-          <a href="#" className="nav__link">
-            Skills
-          </a>
-        </li>
-        <li className="nav__item">
-          <a href="#" className="nav__link">
-            Contact
-          </a>
-        </li>
-      </ul>
-    </nav>
+    <Menu mode="horizontal">
+      <Menu.Item key="home">
+        <Link to="/">Home</Link>
+      </Menu.Item>
+      <Menu.Item key="products">
+        <Link to="/product-details">Product Details</Link>
+      </Menu.Item>
+      <Menu.Item key="compare">
+        <Link to="/compare-products">Compare Products</Link>
+      </Menu.Item>
+      <Menu.Item key="dashboard">
+        <Link to="/dashboard">Dashboard</Link>
+      </Menu.Item>
+      <Menu.Item key="opportunities">
+        <Link to="/opportunities">Opportunities</Link>
+      </Menu.Item>
+      <Menu.Item key="contact">
+        <Link to="/contact">Contact Us</Link>
+      </Menu.Item>
+    </Menu>
   );
-}
+};
 
 export default Navbar;

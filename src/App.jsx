@@ -10,7 +10,10 @@ import {
 } from "@ant-design/icons";
 import logo from "./assets/logo.png";
 import Navbar from "./components/Navbar";
-import ProductTable from "./components/ProductTable"; // Import the ProductTable component
+import ProductTable from "./components/ProductTable";
+import Home from "./components/Home";
+import Dashboard from "./components/Dashboard"; 
+import Opportunities from "./components/Opportunities";
 
 const { Header, Content, Sider } = Layout;
 
@@ -23,13 +26,12 @@ const App = () => {
   return (
     <Router>
       <Layout style={{ minHeight: "100vh" }}>
-        {/* Navbar */}
+        {/* Navbar with Home Link */}
         <Header style={{ padding: 0, background: "#fff" }}>
           <Navbar />
         </Header>
 
         <Layout>
-          {/* Sidebar */}
           <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
             <div className="logo" style={{ textAlign: "center", padding: "10px" }}>
               <Image width={collapsed ? 40 : 150} src={logo} preview={false} />
@@ -54,7 +56,6 @@ const App = () => {
             </Menu>
           </Sider>
 
-          {/* Page Content */}
           <Layout style={{ padding: "24px" }}>
             <Content
               style={{
@@ -65,12 +66,14 @@ const App = () => {
               }}
             >
               <Routes>
+                <Route path="/" element={<Home />} />
                 <Route path="/product-details" element={<ProductTable />} />
                 <Route path="/compare-products" element={<h2>Compare Products Page</h2>} />
-                <Route path="/dashboard" element={<h2>Dashboard Page</h2>} />
+                <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/opportunities" element={<h2>Opportunities Page</h2>} />
                 <Route path="/contact" element={<h2>Contact Us Page</h2>} />
-                <Route path="/" element={<h2>Welcome! Select an option from the sidebar.</h2>} />
+                
+
               </Routes>
             </Content>
           </Layout>
